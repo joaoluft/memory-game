@@ -41,10 +41,6 @@ export const cards = [
   },
   {
     id: uuidv4(),
-    name: "back"
-  },
-  {
-    id: uuidv4(),
     name: "baxcalibur"
   },
   {
