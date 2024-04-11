@@ -12,7 +12,8 @@ export default defineConfig({
       Constants: "/src/Constants",
       Themes: "/src/Themes",
       Pages: "/src/Pages",
-      Contexts: "/src/Contexts"
+      Contexts: "/src/Contexts",
+      Assets: "/src/Assets"
     },
   },
 })
