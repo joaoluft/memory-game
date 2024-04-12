@@ -23,6 +23,11 @@ export const useCard = (play, setPlay, position, remove) => {
       } else {
         setFlipped(false);
       }
+
+      setPlay((prevPlay) => ({
+        ...prevPlay,
+        cards: [],
+      }));
     }, 1500);
   }, [play]);
 
