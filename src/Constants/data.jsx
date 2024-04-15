@@ -18,15 +18,15 @@ export const difficulties = [
 export const sizes = [
   {
     id: 4,
-    raw: "4x4",
+    raw: "4 Cartas",
   },
   {
     id: 6,
-    raw: "6x6",
+    raw: "6 Cartas",
   },
   {
     id: 10,
-    raw: "10x10",
+    raw: "10 Cartas",
   },
 ];
 

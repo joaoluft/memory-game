@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { GameContext } from "Contexts/GameContext";
 
-export const useStart = () => {
+export const useStart = (setStep) => {
   const { data, setData } = useContext(GameContext);
   const [disabled, setDisabled] = useState(true);
 
@@ -10,12 +10,13 @@ export const useStart = () => {
   };
 
   useEffect(() => {
-    if (!Object.values(data).some((value) => value === null)) setDisabled(false);
+    if (!Object.values(data).some((value) => value === null))
+      setDisabled(false);
   }, [data]);
 
   const startGameHandler = () => {
-    console.log(data)
-  }
+    setStep(2);
+  };
 
   return [data, setData, disabled, userNameHandler, startGameHandler];
 };

@@ -2,12 +2,13 @@ import { StyledCard, StyledFront, StyledBack } from "Components/Card/styles";
 import { useCard } from "Hooks/useCard";
 import backCard from "Assets/Cards/back.png";
 
-export const Card = ({ id, position, play, setPlay, visible, remove }) => {
+export const Card = ({ id, position, play, setPlay, visible, remove, setMatch }) => {
   const [flipped, card, cardClickHandler] = useCard(
     play,
     setPlay,
     position,
-    remove
+    remove,
+    setMatch
   );
 
   return (
