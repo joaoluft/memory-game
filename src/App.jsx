@@ -6,7 +6,7 @@ import { StyledMain } from "Components/Container";
 import { useApp } from "Hooks/useApp";
 
 export const App = () => {
-  const [renderStep, setStep] = useApp();
+  const [renderStep] = useApp();
 
   return (
     <ThemeProvider theme={theme}>

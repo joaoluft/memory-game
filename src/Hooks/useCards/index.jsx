@@ -3,14 +3,21 @@ import { GameContext } from "Contexts/GameContext";
 import { getCards } from "src/utils";
 import { Card } from "Components/Card";
 import { usePlay } from "Hooks/usePlay";
+import { EndCard } from "Components/EndCard";
 
-export const useCards = () => {
+export const useCards = (setStep) => {
   const [cards, setCards] = useState([]);
   const { data } = useContext(GameContext);
-  const [play, setPlay] = usePlay();
-
-  // Remover (Simulação de persistencia de dados)
-  data.size = 6;
+  const [play, setPlay, corrects, endGame] = usePlay(cards, setStep);
+  const [match, setMatch] = useState({
+    id: null,
+    player: null,
+    moves: 0,
+    errors: 0,
+    points: 0,
+    time: 300,
+    size: data.size
+  });
 
   const shuffleCards = (cards) => {
     return cards.sort(() => Math.random() - 0.5);
@@ -60,10 +67,14 @@ export const useCards = () => {
         return card;
       })
     );
+
+    if (!corrects.current.includes(id)) {
+      corrects.current = [...corrects.current, id];
+    }
   };
 
   const renderCards = () => {
-    return cards.map((card, index) => (
+    return ( !endGame ? cards.map((card, index) => (
       <Card
         play={play}
         setPlay={setPlay}
@@ -72,7 +83,10 @@ export const useCards = () => {
         remove={removeCard}
         key={index}
         id={card.id}
+        setMatch={setMatch}
       />
+    )) : (
+      <EndCard setStep={setStep} data={match} />
     ));
   };
 

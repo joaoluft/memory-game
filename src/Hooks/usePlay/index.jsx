@@ -1,14 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export const usePlay = () => {
+export const usePlay = (cards, setStep) => {
   const [play, setPlay] = useState({
-    attempts: 0,
-    cards: []
+    cards: [],
   });
 
-  useEffect(() => {
-    console.log(play);
-  }, [play]);
+  const [endGame, setEndGame] = useState(false);
 
-  return [play, setPlay]
-}
+  const corrects = useRef([]);
+
+  useEffect(() => {
+    const end = cards.every((card) =>
+      corrects.current.some((correct) => correct === card.id)
+    );
+
+    setEndGame(end);
+
+    if (end) setStep(2);
+  }, [corrects.current, cards]);
+
+  return [play, setPlay, corrects, endGame];
+};

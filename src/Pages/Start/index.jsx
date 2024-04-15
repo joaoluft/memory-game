@@ -11,9 +11,9 @@ import {
   StyledSubTitle,
 } from "Pages/Start/styles";
 
-export const Start = () => {
+export const Start = ({ setStep }) => {
   const [data, setData, disabled, userNameHandler, startGameHandler] =
-    useStart();
+    useStart(setStep);
 
   return (
     <StyledSection>
@@ -27,7 +27,7 @@ export const Start = () => {
           setOption={setData}
           type="difficulty"
         />
-        <StyledSubTitle>Tamanho do quadro de cartas:</StyledSubTitle>
+        <StyledSubTitle>Quantidade de cartas:</StyledSubTitle>
         <Selector
           itens={sizes}
           current={data.size}
