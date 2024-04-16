@@ -16,7 +16,7 @@ export const useCards = (setStep) => {
     errors: 0,
     points: 0,
     time: 300,
-    size: data.size
+    size: data.size,
   });
 
   const shuffleCards = (cards) => {
@@ -73,21 +73,62 @@ export const useCards = (setStep) => {
     }
   };
 
+  const validateCards = (selected) => {
+    setMatch((prevMatch) => ({ ...prevMatch, moves: prevMatch.moves + 1 }));
+
+    const correct = selected[0].id === selected[1].id;
+
+    if (correct) {
+      removeCard(selected[0].id);
+      setMatch((prevMatch) => ({
+        ...prevMatch,
+        points: prevMatch.points + 100 / prevMatch.size,
+      }));
+    }
+
+    setPlay((prevPlay) => ({
+      ...prevPlay,
+      cards: [],
+    }));
+
+    console.log("validado");
+  };
+
+  useEffect(() => {
+    if (play.cards.length !== 2) return;
+    setTimeout(() => {
+      validateCards(play.cards);
+      console.log(play.cards);
+    }, 1500);
+  }, [play.cards]);
+
+  const selectCardHandler = (card) => {
+    if (play.cards.length === 2) return;
+    setPlay((prevPlay) => ({
+      ...prevPlay,
+      cards: [...prevPlay.cards, card],
+    }));
+  };
+
   const renderCards = () => {
-    return ( !endGame ? cards.map((card, index) => (
-      <Card
-        play={play}
-        setPlay={setPlay}
-        position={card.position}
-        visible={card.visible}
-        remove={removeCard}
-        key={index}
-        id={card.id}
-        setMatch={setMatch}
-      />
-    )) : (
+    return !endGame ? (
+      cards.map((card, index) => (
+        <Card
+          flipped={play.cards.some(
+            (target) =>
+              target.id === card.id &&
+              target.position &&
+              target.position === card.position
+          )}
+          visible={card.visible}
+          key={index}
+          id={card.id}
+          selectCardHandler={() => selectCardHandler(card)}
+        />
+      ))
+    ) : (
       <EndCard setStep={setStep} data={match} />
-    ));
+    );
   };
 
   return [renderCards];
