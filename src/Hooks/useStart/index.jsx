@@ -4,13 +4,30 @@ import { GameContext } from "Contexts/GameContext";
 export const useStart = (setStep) => {
   const { data, setData } = useContext(GameContext);
   const [disabled, setDisabled] = useState(true);
-
-  const userNameHandler = (e) => {
-    setData((prevData) => ({ ...prevData, name: e.target.value }));
-  };
+  const [nameInput, setNameInput] = useState("");
+  const [firstRender, setFirstRender] = useState(true);
 
   useEffect(() => {
-    if (!Object.values(data).some((value) => value === null))
+    setData({
+      name: null,
+      difficulty: null,
+      size: null,
+    });
+
+    setFirstRender(false);
+  }, []);
+
+  useEffect(() => {
+    if (nameInput.length <= 0) {
+      setDisabled(true);
+      setData((prevData) => ({ ...prevData, name: null }));
+    } else {
+      setData((prevData) => ({ ...prevData, name: nameInput }));
+    }
+  }, [nameInput]);
+
+  useEffect(() => {
+    if (!Object.values(data).some((value) => value === null) && !firstRender)
       setDisabled(false);
   }, [data]);
 
@@ -18,5 +35,5 @@ export const useStart = (setStep) => {
     setStep(2);
   };
 
-  return [data, setData, disabled, userNameHandler, startGameHandler];
+  return [data, setData, disabled, startGameHandler, setNameInput];
 };

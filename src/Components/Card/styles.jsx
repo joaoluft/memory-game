@@ -1,22 +1,4 @@
-import styled, { keyframes, css } from "styled-components";
-
-const flipInAnimation = keyframes`
-  0% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    transform: rotateY(180deg);
-  }
-`;
-
-const flipOutAnimation = keyframes`
-  0% {
-    transform: rotateY(180deg);
-  }
-  100% {
-    transform: rotateY(0deg);
-  }
-`;
+import styled, { css } from "styled-components";
 
 export const StyledCard = styled.div`
   cursor: ${({ $visible }) => ($visible ? "pointer" : "unset")};
@@ -30,17 +12,17 @@ export const StyledCard = styled.div`
   ${({ $visible }) =>
     !$visible &&
     css`
-      opacity: 0;
+      opacity: 0.5;
     `}
 
   ${({ $flipped }) =>
     (!$flipped &&
       css`
-        animation: ${flipOutAnimation} 1s forwards;
+        animation: ${props => props.theme.animations.flipOut} 1s forwards;
       `) ||
     ($flipped &&
       css`
-        animation: ${flipInAnimation} 1s forwards;
+        animation: ${props => props.theme.animations.flipIn} 1s forwards;
       `)}
 
   &:hover {

@@ -6,39 +6,33 @@ import {
   StyledTitle,
   StyledParagraph,
   StyledSubTitle,
-  StyledButtonContainer
+  StyledButtonContainer,
 } from "Components/EndCard/styles";
 import { Button } from "Components/Button";
+import { formatTime } from "src/utils";
 
 export const EndCard = ({ setStep, data }) => {
-  const { points, time, moves } = data;
+  const { points, time, moves, size } = data;
 
   const getEmotion = (points) => {
-    const bad = points > 30 && points < 50;
-    const medium = points > 50 && points < 70;
-    const great = points > 70;
+    const accuracy = (points / (100 * size)) * 100;
 
-    if (bad) {
+    if (accuracy < 40) {
       return {
         result: "Ruim",
         image: badPikachu,
       };
-    } else if (medium) {
+    } else if (accuracy >= 40 && accuracy < 60) {
       return {
-        result: "Médio",
+        result: "Mediano",
         image: mediumPikachu,
       };
-    } else if (great) {
+    } else {
       return {
         result: "Excelente",
         image: greatPikachu,
       };
     }
-
-    return {
-      result: "Ruim",
-      image: badPikachu,
-    };
   };
 
   return (
@@ -47,11 +41,15 @@ export const EndCard = ({ setStep, data }) => {
       <StyledTitle>Fim do jogo!</StyledTitle>
       <StyledSubTitle>{getEmotion(points).result}!</StyledSubTitle>
       <StyledParagraph>Pontos: {points}</StyledParagraph>
-      <StyledParagraph>Tempo: {time}</StyledParagraph>
+      <StyledParagraph>Tempo: {formatTime(time)}</StyledParagraph>
       <StyledParagraph>Movimentos: {moves}</StyledParagraph>
       <StyledButtonContainer>
-        <Button onClick={() => setStep(1)}>Reiniciar</Button>
-        <Button>Ver placar</Button>
+        <Button color="purple" fontColor="light" onClick={() => setStep(1)}>
+          Reiniciar
+        </Button>
+        <Button color="blue" fontColor="light" onClick={() => setStep(3)}>
+          Ver placar
+        </Button>
       </StyledButtonContainer>
     </StyledContainer>
   );

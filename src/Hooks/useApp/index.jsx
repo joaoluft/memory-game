@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Start } from "Pages/Start";
 import { Cards } from "Pages/Cards";
+import { Leaderboard } from "Pages/Leaderboard";
 
 export const useApp = () => {
   const [step, setStep] = useState(1);
@@ -11,7 +12,10 @@ export const useApp = () => {
         return <Start setStep={setStep} />;
         break;
       case 2:
-        return <Cards setStep={setStep} />
+        return <Cards setStep={setStep} />;
+        break;
+      case 3:
+        return <Leaderboard setStep={setStep} />;
         break;
       default:
         return <Start />;

@@ -4,7 +4,7 @@ export const StyledButton = styled.button`
   outline: none;
   border-radius: 50px;
   border: none;
-  background: ${props => props.theme.colors.aquaGreen};
+  background: ${props => props.theme.colors[props.$color]};
   padding: 16px 42px;
   display: flex;
   align-items: center;
@@ -12,7 +12,7 @@ export const StyledButton = styled.button`
   gap: 12px;
   font-size: ${props => props.theme.fontSizes.large};
   font-weight: bold;
-  color: #3f3f3f;
+  color: ${props => props.theme.colors[props.$fontColor]};
   cursor: pointer;
   text-transform: uppercase;
   width: 100%;

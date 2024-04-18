@@ -1,4 +1,5 @@
 import { StyledOption, StyledContainer } from "Components/Start/Selector/styles"
+import { useEffect } from "react";
 
 export const Selector = ({ itens, current, setOption, type }) => {
 
