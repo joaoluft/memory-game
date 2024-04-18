@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { findCardById } from "src/utils";
 
-export const useCard = (id, selectCardHandler) => {
+export const useCard = (selectCardHandler, corrects) => {
   const [card, setCard] = useState({
     id: null,
     name: null,
@@ -9,9 +9,11 @@ export const useCard = (id, selectCardHandler) => {
   });
 
   const cardClickHandler = (id) => {
+    if (corrects.current.some((card) => card === id)) return;
+
     findCardById(id)
       .then((res) => {
-        selectCardHandler(res)
+        selectCardHandler(res);
         setCard(res);
       })
       .catch((err) => {

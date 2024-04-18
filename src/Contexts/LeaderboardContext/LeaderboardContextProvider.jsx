@@ -2,14 +2,10 @@ import { useState } from "react";
 import { LeaderboardContext } from "Contexts/LeaderboardContext";
 
 export const LeaderboardContextProvider = ({ children }) => {
-  const [data, setData] = useState({
-    name: null,
-    difficulty: null,
-    size: null,
-  });
+  const [leader, setLeader] = useState([]);
 
   return (
-    <LeaderboardContext.Provider value={{ data, setData }}>
+    <LeaderboardContext.Provider value={{ leader, setLeader }}>
       {children}
     </LeaderboardContext.Provider>
   );

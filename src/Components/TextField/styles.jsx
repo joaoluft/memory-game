@@ -9,9 +9,9 @@ export const StyledInput = styled.input`
   border-radius: 50px;
   text-align: center;
   font-size: ${props => props.theme.fontSizes.large};
-  border: 2px solid ${props => props.theme.colors.aquaGreen};
+  border: 2px solid ${props => props.theme.colors.lightBlue};
 
-  &:placeholder {
-    color: #a3a3a3;
+  &::placeholder {
+    color: #b1b1b1;
   }
 `

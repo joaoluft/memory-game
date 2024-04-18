@@ -7,38 +7,61 @@ import { useStart } from "Hooks/useStart";
 import {
   StyledSection,
   StyledContainer,
-  StyledTitle,
   StyledSubTitle,
+  StyledLogo,
+  StyledMainContainer,
+  StyledButtonsContainer,
+  StyledParagraph,
 } from "Pages/Start/styles";
+import logo from "Assets/logo.png";
+import { MdLeaderboard } from "react-icons/md";
 
 export const Start = ({ setStep }) => {
-  const [data, setData, disabled, userNameHandler, startGameHandler] =
-    useStart(setStep);
+  const [
+    data,
+    setData,
+    disabled,
+    startGameHandler,
+    setNameInput,
+  ] = useStart(setStep);
 
   return (
     <StyledSection>
-      <StyledTitle>Jogo da Memória - Pokémons</StyledTitle>
-      <StyledContainer>
-        <TextField onChange={userNameHandler} placeholder="Insira seu nome" />
-        <StyledSubTitle>Selecione a dificuldade:</StyledSubTitle>
-        <Selector
-          itens={difficulties}
-          current={data.difficulty}
-          setOption={setData}
-          type="difficulty"
-        />
-        <StyledSubTitle>Quantidade de cartas:</StyledSubTitle>
-        <Selector
-          itens={sizes}
-          current={data.size}
-          setOption={setData}
-          type="size"
-        />
-        <Button onClick={startGameHandler} disabled={disabled}>
-          <FaPlay />
-          <span>Iniciar</span>
-        </Button>
-      </StyledContainer>
+      <StyledMainContainer>
+        <StyledLogo draggable="false" src={logo} />
+        <StyledContainer>
+          <TextField onChange={(e) => setNameInput(e.target.value.trim())} placeholder="Ex: John Doe" />
+          <StyledSubTitle>Selecione a dificuldade:</StyledSubTitle>
+          <Selector
+            itens={difficulties}
+            current={data.difficulty}
+            setOption={setData}
+            type="difficulty"
+          />
+          <StyledSubTitle>Quantidade de cartas:</StyledSubTitle>
+          <Selector
+            itens={sizes}
+            current={data.size}
+            setOption={setData}
+            type="size"
+          />
+          <StyledButtonsContainer>
+            <Button onClick={startGameHandler} disabled={disabled}>
+              <FaPlay />
+              <span>Iniciar</span>
+            </Button>
+            <Button color="lightBlue" onClick={() => setStep(3)}>
+              <MdLeaderboard />
+              <span>Ver placar</span>
+            </Button>
+          </StyledButtonsContainer>
+          <StyledParagraph>
+            {disabled
+              ? "*Para iniciar seu jogo, complete as informações do formulário acima!"
+              : 'Clique em "INICIAR" para iniciar sua partida de jogo da memória.'}
+          </StyledParagraph>
+        </StyledContainer>
+      </StyledMainContainer>
     </StyledSection>
   );
 };

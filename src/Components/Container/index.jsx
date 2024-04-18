@@ -1,16 +1,11 @@
 import styled from "styled-components";
+import BackgroundImage from "Assets/bg.png"
 
 export const StyledMain = styled.main`
-  background: rgb(23, 15, 142);
-  background: linear-gradient(
-    90deg,
-    rgba(23, 15, 142, 1) 0%,
-    rgba(133, 118, 255, 1) 56%,
-    rgba(123, 201, 255, 1) 100%
-  );
+  background-image: url(${BackgroundImage});
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.60);
+  background-blend-mode: multiply;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
 `;

@@ -4,20 +4,49 @@ import { getCards } from "src/utils";
 import { Card } from "Components/Card";
 import { usePlay } from "Hooks/usePlay";
 import { EndCard } from "Components/EndCard";
+import { useTimer } from "Hooks/useTimer";
+import { v4 as uuidv4 } from "uuid";
 
 export const useCards = (setStep) => {
   const [cards, setCards] = useState([]);
   const { data } = useContext(GameContext);
-  const [play, setPlay, corrects, endGame] = usePlay(cards, setStep);
+
+  const getTimeByDifficulty = (diff) => {
+    switch (diff) {
+      case "easy":
+        return 600;
+        break;
+      case "medium":
+        return 300;
+        break;
+      case "hardcore":
+        return 150;
+        break;
+      default:
+        return 600;
+    }
+  };
+
   const [match, setMatch] = useState({
     id: null,
     player: null,
     moves: 0,
     errors: 0,
     points: 0,
-    time: 300,
+    time: getTimeByDifficulty(data.difficulty),
     size: data.size,
   });
+
+  const [play, setPlay, corrects, endGame, setEndGame] = usePlay(
+    match,
+    cards,
+    setStep
+  );
+
+  const { formattedTime, seconds, formatTime } = useTimer(
+    match.time,
+    setEndGame
+  );
 
   const shuffleCards = (cards) => {
     return cards.sort(() => Math.random() - 0.5);
@@ -38,8 +67,8 @@ export const useCards = (setStep) => {
 
     // Criando duplas
     maskedCards = maskedCards.flatMap((card) => [
-      { id: card.id, visible: card.visible, position: 1 },
-      { id: card.id, visible: card.visible, position: 2 },
+      { id: card.id, renderIdentifier: uuidv4(), visible: card.visible, position: 1 },
+      { id: card.id, renderIdentifier: uuidv4(), visible: card.visible, position: 2 },
     ]);
 
     // Embaralhando novamente
@@ -56,6 +85,11 @@ export const useCards = (setStep) => {
       .catch((err) => {
         console.error(err);
       });
+
+    setMatch((prevMatch) => ({
+      ...prevMatch,
+      id: uuidv4(),
+    }));
   }, []);
 
   const removeCard = (id) => {
@@ -82,7 +116,13 @@ export const useCards = (setStep) => {
       removeCard(selected[0].id);
       setMatch((prevMatch) => ({
         ...prevMatch,
-        points: prevMatch.points + 100 / prevMatch.size,
+        points: Math.max(0, prevMatch.points + 100),
+      }));
+    } else {
+      setMatch((prevMatch) => ({
+        ...prevMatch,
+        errors: prevMatch.errors + 1,
+        points: Math.max(0, prevMatch.points - 20),
       }));
     }
 
@@ -91,14 +131,16 @@ export const useCards = (setStep) => {
       cards: [],
     }));
 
-    console.log("validado");
+    setMatch((prevMatch) => ({
+      ...prevMatch,
+      time: Math.max(0, getTimeByDifficulty(data.difficulty) - seconds),
+    }));
   };
 
   useEffect(() => {
     if (play.cards.length !== 2) return;
     setTimeout(() => {
       validateCards(play.cards);
-      console.log(play.cards);
     }, 1500);
   }, [play.cards]);
 
@@ -112,7 +154,7 @@ export const useCards = (setStep) => {
 
   const renderCards = () => {
     return !endGame ? (
-      cards.map((card, index) => (
+      cards.map((card) => (
         <Card
           flipped={play.cards.some(
             (target) =>
@@ -121,15 +163,16 @@ export const useCards = (setStep) => {
               target.position === card.position
           )}
           visible={card.visible}
-          key={index}
+          key={card.renderIdentifier}
           id={card.id}
+          corrects={corrects}
           selectCardHandler={() => selectCardHandler(card)}
         />
       ))
     ) : (
-      <EndCard setStep={setStep} data={match} />
+      <EndCard formatTime={formatTime} setStep={setStep} data={match} />
     );
   };
 
-  return [renderCards];
+  return [renderCards, match, endGame, formattedTime, data];
 };
