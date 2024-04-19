@@ -4,7 +4,7 @@ export const findCardById = async (id) => {
   try {
     const card = cardsList.find((card) => card.id === id);
     const image = await import(
-      /* @vite-ignore */ `Assets/Cards/${card.name}.png`
+      /* @vite-ignore */ `./Assets/Cards/${card.name}.png`
     );
     return { ...card, image: image.default };
   } catch (err) {
