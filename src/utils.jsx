@@ -3,9 +3,7 @@ import { cards as cardsList } from "Constants/data";
 export const findCardById = async (id) => {
   try {
     const card = cardsList.find((card) => card.id === id);
-    const path = `/Assets/Cards/${card.name}.png`;
-    const image = await import(/* @vite-ignore */ path);
-    return { ...card, image: image.default };
+    return { ...card, image: `/Assets/Cards/${card.name}.png` };
   } catch (err) {
     console.error(err);
     return {};
