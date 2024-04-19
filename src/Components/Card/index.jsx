@@ -1,6 +1,6 @@
 import { StyledCard, StyledFront, StyledBack } from "Components/Card/styles";
 import { useCard } from "Hooks/useCard";
-import backCard from "Assets/Cards/back.png";
+import backCard from "/Assets/Cards/back.png";
 
 export const Card = ({ id, flipped, visible, selectCardHandler, corrects }) => {
   const [card, cardClickHandler] = useCard(selectCardHandler, corrects);

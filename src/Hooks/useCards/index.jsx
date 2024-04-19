@@ -7,7 +7,7 @@ import { EndCard } from "Components/EndCard";
 import { useTimer } from "Hooks/useTimer";
 import { v4 as uuidv4 } from "uuid";
 import { useSound } from "Hooks/useSound";
-import startSound from "Assets/Sounds/start.mp3";
+import startSound from "/Assets/Sounds/start.mp3";
 
 export const useCards = (setStep) => {
   const [cards, setCards] = useState([]);
