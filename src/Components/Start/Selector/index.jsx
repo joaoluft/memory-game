@@ -1,10 +1,12 @@
-import { StyledOption, StyledContainer } from "Components/Start/Selector/styles"
-import { useEffect } from "react";
+import {
+  StyledOption,
+  StyledContainer,
+} from "Components/Start/Selector/styles";
 
-export const Selector = ({ itens, current, setOption, type }) => {
-
+export const Selector = ({ sound, itens, current, setOption, type }) => {
   const selectOptionHandler = (id) => {
-    setOption(prevData => ({...prevData, [type]: id}))
+    sound();
+    setOption((prevData) => ({ ...prevData, [type]: id }));
   };
 
   const renderOptions = () => {
@@ -20,5 +22,5 @@ export const Selector = ({ itens, current, setOption, type }) => {
     ));
   };
 
-  return <StyledContainer>{renderOptions()}</StyledContainer>
+  return <StyledContainer>{renderOptions()}</StyledContainer>;
 };

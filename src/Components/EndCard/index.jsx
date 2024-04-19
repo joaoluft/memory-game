@@ -10,9 +10,11 @@ import {
 } from "Components/EndCard/styles";
 import { Button } from "Components/Button";
 import { formatTime } from "src/utils";
+import { useEndCard } from "Hooks/useEndCard";
 
 export const EndCard = ({ setStep, data }) => {
   const { points, time, moves, size } = data;
+  useEndCard();
 
   const getEmotion = (points) => {
     const accuracy = (points / (100 * size)) * 100;

@@ -21,18 +21,22 @@ export const Start = ({ setStep }) => {
     data,
     setData,
     disabled,
-    startGameHandler,
-    setNameInput,
-  ] = useStart(setStep);
+    playSound,
+    setNameHandler,
+  ] = useStart();
 
   return (
     <StyledSection>
       <StyledMainContainer>
         <StyledLogo draggable="false" src={logo} />
         <StyledContainer>
-          <TextField onChange={(e) => setNameInput(e.target.value.trim())} placeholder="Ex: John Doe" />
+          <TextField
+            onChange={setNameHandler}
+            placeholder="Ex: John Doe"
+          />
           <StyledSubTitle>Selecione a dificuldade:</StyledSubTitle>
           <Selector
+            sound={playSound}
             itens={difficulties}
             current={data.difficulty}
             setOption={setData}
@@ -40,13 +44,14 @@ export const Start = ({ setStep }) => {
           />
           <StyledSubTitle>Quantidade de cartas:</StyledSubTitle>
           <Selector
+            sound={playSound}
             itens={sizes}
             current={data.size}
             setOption={setData}
             type="size"
           />
           <StyledButtonsContainer>
-            <Button onClick={startGameHandler} disabled={disabled}>
+            <Button onClick={() => setStep(2)} disabled={disabled}>
               <FaPlay />
               <span>Iniciar</span>
             </Button>
