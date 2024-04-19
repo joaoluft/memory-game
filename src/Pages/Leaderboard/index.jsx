@@ -8,6 +8,7 @@ import {
   StyledContentContainer,
   StyledNotFoundContainer,
   StyledHeaderContainer,
+  StyledTableContainer,
 } from "Pages/Leaderboard/styles";
 import { Button } from "Components/Button";
 import { IoArrowBackOutline } from "react-icons/io5";
@@ -24,7 +25,7 @@ export const Leaderboard = ({ setStep }) => {
     if (a.time === b.time) {
       return b.points - a.points;
     }
-    
+
     return a.time - b.time;
   });
 
@@ -55,21 +56,23 @@ export const Leaderboard = ({ setStep }) => {
         </StyledHeaderContainer>
         <StyledContentContainer>
           {leader.length > 0 ? (
-            <StyledTable>
-              <thead>
-                <tr>
-                  <th>Lugar</th>
-                  <th>Jogador</th>
-                  <th>Tempo</th>
-                  <th>Pontos</th>
-                  <th>Movimentos</th>
-                  <th>Erros</th>
-                  <th>Dificuldade</th>
-                  <th>Cartas</th>
-                </tr>
-              </thead>
-              <tbody>{renderLeaders()}</tbody>
-            </StyledTable>
+            <StyledTableContainer>
+              <StyledTable>
+                <thead>
+                  <tr>
+                    <th>Lugar</th>
+                    <th>Jogador</th>
+                    <th>Tempo</th>
+                    <th>Pontos</th>
+                    <th>Movimentos</th>
+                    <th>Erros</th>
+                    <th>Dificuldade</th>
+                    <th>Cartas</th>
+                  </tr>
+                </thead>
+                <tbody>{renderLeaders()}</tbody>
+              </StyledTable>
+            </StyledTableContainer>
           ) : (
             <StyledNotFoundContainer>
               <StyledNotFound>Nenhuma partida encontrada!</StyledNotFound>

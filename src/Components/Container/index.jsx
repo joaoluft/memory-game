@@ -7,5 +7,9 @@ export const StyledMain = styled.main`
   background-position: center;
   background-color: rgba(0, 0, 0, 0.60);
   background-blend-mode: multiply;
-  min-height: 100vh;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;

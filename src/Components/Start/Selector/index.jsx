@@ -13,6 +13,7 @@ export const Selector = ({ itens, current, setOption, type }) => {
         onClick={() => selectOptionHandler(item.id)}
         key={item.id}
         $selected={item.id === current}
+        $type={type}
       >
         {item.raw}
       </StyledOption>

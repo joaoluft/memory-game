@@ -22,6 +22,10 @@ export const StyledCardsContainer = styled.div`
   align-items: center;
   justify-content: center;
   max-width: 80%;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 
 export const StyledHeader = styled.div`
@@ -48,4 +52,8 @@ export const StyledUserName = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xxlarge};
   color: ${(props) => props.theme.colors.light};
   font-weight: 500;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
