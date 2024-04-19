@@ -159,6 +159,11 @@ export const useCards = (setStep) => {
   }, [play.cards]);
 
   const selectCardHandler = (card) => {
+    const repeated = play.cards.some(
+      (item) => item.renderIdentifier === card.renderIdentifier
+    );
+
+    if (repeated) return;
     if (play.cards.length === 2) return;
     setPlay((prevPlay) => ({
       ...prevPlay,
