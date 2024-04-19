@@ -18,7 +18,13 @@ export const usePlay = (match, cards, setStep) => {
       corrects.current.some((correct) => correct === card.id)
     );
 
-    if (end) {
+    setEndGame(end);
+
+    if (end) setStep(2);
+  }, [corrects.current, cards]);
+
+  useEffect(() => {
+    if (endGame) {
       if (match.id == null) return;
       setLeader((prevLeader) => [
         ...prevLeader,
@@ -29,11 +35,7 @@ export const usePlay = (match, cards, setStep) => {
         },
       ]);
     }
-
-    setEndGame(end);
-
-    if (end) setStep(2);
-  }, [corrects.current, cards]);
+  }, [endGame]);
 
   return [play, setPlay, corrects, endGame, setEndGame];
 };

@@ -6,10 +6,13 @@ import { usePlay } from "Hooks/usePlay";
 import { EndCard } from "Components/EndCard";
 import { useTimer } from "Hooks/useTimer";
 import { v4 as uuidv4 } from "uuid";
+import { useSound } from "Hooks/useSound";
+import startSound from "Assets/Sounds/start.mp3";
 
 export const useCards = (setStep) => {
   const [cards, setCards] = useState([]);
   const { data } = useContext(GameContext);
+  const playSound = useSound(startSound);
 
   const getTimeByDifficulty = (diff) => {
     switch (diff) {
@@ -67,8 +70,18 @@ export const useCards = (setStep) => {
 
     // Criando duplas
     maskedCards = maskedCards.flatMap((card) => [
-      { id: card.id, renderIdentifier: uuidv4(), visible: card.visible, position: 1 },
-      { id: card.id, renderIdentifier: uuidv4(), visible: card.visible, position: 2 },
+      {
+        id: card.id,
+        renderIdentifier: uuidv4(),
+        visible: card.visible,
+        position: 1,
+      },
+      {
+        id: card.id,
+        renderIdentifier: uuidv4(),
+        visible: card.visible,
+        position: 2,
+      },
     ]);
 
     // Embaralhando novamente
@@ -78,6 +91,7 @@ export const useCards = (setStep) => {
   };
 
   useEffect(() => {
+    playSound();
     getCards()
       .then((res) => {
         randomizeDoubleCards(res, data.size);

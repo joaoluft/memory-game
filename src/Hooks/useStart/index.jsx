@@ -1,11 +1,19 @@
 import { useState, useEffect, useContext } from "react";
 import { GameContext } from "Contexts/GameContext";
+import { useSound } from "Hooks/useSound";
+import selectSound from "Assets/Sounds/select.mp3";
 
-export const useStart = (setStep) => {
+export const useStart = () => {
   const { data, setData } = useContext(GameContext);
   const [disabled, setDisabled] = useState(true);
   const [nameInput, setNameInput] = useState("");
   const [firstRender, setFirstRender] = useState(true);
+  const playSound = useSound(selectSound);
+
+  const setNameHandler = (e) => {
+    playSound();
+    setNameInput(e.target.value.trim());
+  };
 
   useEffect(() => {
     setData({
@@ -31,9 +39,11 @@ export const useStart = (setStep) => {
       setDisabled(false);
   }, [data]);
 
-  const startGameHandler = () => {
-    setStep(2);
-  };
-
-  return [data, setData, disabled, startGameHandler, setNameInput];
+  return [
+    data,
+    setData,
+    disabled,
+    playSound,
+    setNameHandler,
+  ];
 };
