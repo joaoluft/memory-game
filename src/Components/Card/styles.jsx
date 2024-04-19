@@ -6,7 +6,6 @@ export const StyledCard = styled.div`
   height: 320px;
   perspective: 1000px;
   transform-style: preserve-3d;
-
   transition: transform 500ms, opacity 1000ms;
 
   ${({ $visible }) =>
@@ -18,15 +17,21 @@ export const StyledCard = styled.div`
   ${({ $flipped }) =>
     (!$flipped &&
       css`
-        animation: ${props => props.theme.animations.flipOut} 1s forwards;
+        animation: ${(props) => props.theme.animations.flipOut} 1s forwards;
       `) ||
     ($flipped &&
       css`
-        animation: ${props => props.theme.animations.flipIn} 1s forwards;
+        animation: ${(props) => props.theme.animations.flipIn} 1s forwards;
       `)}
 
   &:hover {
     transform: scale(1.02);
+  }
+
+  @media (max-width: 768px) {
+    transform: scale(0.8);
+    width: 184px; /* ajuste o tamanho do card para caber melhor em dispositivos móveis */
+    height: 256px;
   }
 `;
 

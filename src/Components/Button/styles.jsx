@@ -1,18 +1,18 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const StyledButton = styled.button`
   outline: none;
   border-radius: 50px;
   border: none;
-  background: ${props => props.theme.colors[props.$color]};
+  background: ${(props) => props.theme.colors[props.$color]};
   padding: 16px 42px;
   display: flex;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
   gap: 12px;
-  font-size: ${props => props.theme.fontSizes.large};
+  font-size: ${(props) => props.theme.fontSizes.large};
   font-weight: bold;
-  color: ${props => props.theme.colors[props.$fontColor]};
+  color: ${(props) => props.theme.colors[props.$fontColor]};
   cursor: pointer;
   text-transform: uppercase;
   width: 100%;
@@ -23,4 +23,10 @@ export const StyledButton = styled.button`
     color: #5f5f5f;
     cursor: not-allowed;
   }
-`
+
+  @media (max-width: 768px) {
+    white-space: nowrap;
+    font-size: ${(props) => props.theme.fontSizes.medium};
+    padding: 12px 20px;
+  }
+`;

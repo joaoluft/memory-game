@@ -7,27 +7,35 @@ export const StyledSection = styled.section`
   align-items: center;
   gap: 20px;
   min-height: 100vh;
-  animation: ${props => props.theme.animations.fadeIn} 600ms ease-in-out;
+  animation: ${(props) => props.theme.animations.fadeIn} 600ms ease-in-out;
 `;
 
 export const StyledMainContainer = styled.div`
   width: fit-content;
-`
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+`;
 
 export const StyledParagraph = styled.p`
   text-align: center;
-  color: ${props => props.theme.colors.light};
+  color: ${(props) => props.theme.colors.light};
   font-weight: 500;
-`
+
+  @media (max-width: 768px) {
+    font-size: ${props => props.theme.fontSizes.small};
+  }
+`;
 
 export const StyledButtonsContainer = styled.div`
   display: flex;
   gap: 16px;
   padding-top: 20px;
-`
+`;
 
 export const StyledLogo = styled.img`
   padding-bottom: 24px;
+  width: 100%;
 `;
 
 export const StyledContainer = styled.div`
