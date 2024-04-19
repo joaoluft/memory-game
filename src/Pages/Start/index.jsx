@@ -13,7 +13,7 @@ import {
   StyledButtonsContainer,
   StyledParagraph,
 } from "Pages/Start/styles";
-import logo from "Assets/logo.png";
+import logo from "/Assets/logo.png";
 import { MdLeaderboard } from "react-icons/md";
 
 export const Start = ({ setStep }) => {

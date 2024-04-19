@@ -1,6 +1,6 @@
-import badPikachu from "Assets/Emotions/bad.gif";
-import mediumPikachu from "Assets/Emotions/medium.gif";
-import greatPikachu from "Assets/Emotions/great.gif";
+import badPikachu from "/Assets/Emotions/bad.gif";
+import mediumPikachu from "/Assets/Emotions/medium.gif";
+import greatPikachu from "/Assets/Emotions/great.gif";
 import {
   StyledContainer,
   StyledTitle,

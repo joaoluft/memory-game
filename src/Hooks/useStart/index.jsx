@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { GameContext } from "Contexts/GameContext";
 import { useSound } from "Hooks/useSound";
-import selectSound from "Assets/Sounds/select.mp3";
+import selectSound from "/Assets/Sounds/select.mp3";
 
 export const useStart = () => {
   const { data, setData } = useContext(GameContext);
